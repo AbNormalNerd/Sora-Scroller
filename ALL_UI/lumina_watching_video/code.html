@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body {
+            background-color: #0A0A0A;
+            color: #e5e2e1;
+            margin: 0;
+            padding: 0;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(19, 19, 19, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .video-glow {
+            box-shadow: 0 0 40px -10px rgba(123, 209, 250, 0.15);
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #131313; }
+        ::-webkit-scrollbar-thumb { background: #353534; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #3f484e; }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-primary": "#003547",
+                      "surface-container-high": "#2a2a2a",
+                      "on-primary-fixed": "#001e2b",
+                      "surface-variant": "#353534",
+                      "surface-container-lowest": "#0e0e0e",
+                      "surface-bright": "#3a3939",
+                      "secondary": "#89ceff",
+                      "on-error": "#690005",
+                      "surface-tint": "#7bd1fa",
+                      "on-primary-fixed-variant": "#004d66",
+                      "on-tertiary-fixed": "#2a1800",
+                      "primary-fixed": "#c0e8ff",
+                      "error": "#ffb4ab",
+                      "inverse-surface": "#e5e2e1",
+                      "primary-container": "#7dd3fc",
+                      "primary-fixed-dim": "#7bd1fa",
+                      "on-tertiary-container": "#754b00",
+                      "error-container": "#93000a",
+                      "secondary-fixed-dim": "#89ceff",
+                      "outline-variant": "#3f484e",
+                      "on-secondary-container": "#00344e",
+                      "on-tertiary-fixed-variant": "#633f00",
+                      "on-error-container": "#ffdad6",
+                      "on-surface": "#e5e2e1",
+                      "surface-container-low": "#1c1b1b",
+                      "on-background": "#e5e2e1",
+                      "on-secondary": "#00344d",
+                      "inverse-primary": "#006686",
+                      "on-primary-container": "#005b78",
+                      "on-surface-variant": "#bec8ce",
+                      "secondary-fixed": "#c9e6ff",
+                      "primary": "#c5eaff",
+                      "secondary-container": "#00a2e6",
+                      "tertiary-fixed": "#ffddb5",
+                      "surface": "#131313",
+                      "tertiary-fixed-dim": "#fcba5e",
+                      "outline": "#899298",
+                      "tertiary-container": "#febc60",
+                      "background": "#131313",
+                      "tertiary": "#ffdfba",
+                      "surface-dim": "#131313",
+                      "on-tertiary": "#452b00",
+                      "on-secondary-fixed-variant": "#004c6e",
+                      "surface-container": "#201f1f",
+                      "on-secondary-fixed": "#001e2f",
+                      "surface-container-highest": "#353534",
+                      "inverse-on-surface": "#313030"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "gutter": "24px",
+                      "player-max-width": "480px",
+                      "unit": "4px",
+                      "margin-desktop": "48px",
+                      "margin-mobile": "16px"
+              },
+              "fontFamily": {
+                      "label-caps": ["JetBrains Mono"],
+                      "headline-lg": ["Inter"],
+                      "display-lg": ["Inter"],
+                      "title-md": ["Inter"],
+                      "body-sm": ["Inter"],
+                      "body-lg": ["Inter"],
+                      "headline-lg-mobile": ["Inter"]
+              },
+              "fontSize": {
+                      "label-caps": ["12px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                      "headline-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "title-md": ["20px", {"lineHeight": "1.4", "fontWeight": "500"}],
+                      "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                      "body-lg": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "headline-lg-mobile": ["24px", {"lineHeight": "1.2", "fontWeight": "600"}]
+              }
+            },
+          },
+        }
+      </script>
+</head>
+<body class="font-body-lg text-body-lg">
+<!-- TopNavBar Implementation -->
+<header class="fixed top-0 w-full z-50 bg-surface/70 backdrop-blur-xl border-b border-white/10 shadow-none flex justify-between items-center px-gutter h-16 w-full">
+<div class="flex items-center gap-8">
+<span class="font-display-lg text-display-lg font-bold tracking-tighter text-primary">LUMINA</span>
+<div class="hidden md:flex items-center bg-white/5 rounded-full px-4 py-2 border border-white/10 w-96 group focus-within:border-secondary transition-all">
+<span class="material-symbols-outlined text-on-surface-variant mr-3" data-icon="search">search</span>
+<input class="bg-transparent border-none outline-none text-body-sm font-label-caps w-full placeholder:text-on-surface-variant/50" placeholder="SEARCH CONTENT..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<button class="p-2 text-on-surface-variant hover:bg-white/10 transition-colors rounded-full active:scale-95 duration-150">
+<span class="material-symbols-outlined" data-icon="upload">upload</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-white/10 transition-colors rounded-full active:scale-95 duration-150 relative">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-secondary rounded-full"></span>
+</button>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-white/20">
+<img alt="User profile" data-alt="A close-up professional headshot of a young person with a friendly expression. The lighting is soft and cinematic, with cool blue ambient light from the side and a warm key light. The background is a blurred high-tech studio environment with subtle glowing interface elements. Minimalist and sophisticated digital portraiture." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0AAcyacfiBN-KZfwpmrZ1cGst9pYqT0lI-A8cONSqGu3Xc7IRurJOukLtXTMfWngLhsmGkuLKSeEBUZZCwcaee-4T9YJ2tbrBlK14N1xj812AuGTa_UzQWfda3Vu-4lVNarPTrM2b2SQUWlsMRfgfo6rTiElFTbeVwdrAhOLMYrYvKJbYbvz-kbZQDxVWIgXZuiemrbMxKUhyTrTJV87brmY3Q6GqqR4STqUTTedg0cDcaG4ypioi8PYRpVrHAlwtT9NGMrfezKQ"/>
+</div>
+</div>
+</header>
+<!-- SideNavBar Implementation (Desktop) -->
+<nav class="hidden md:flex flex-col pt-20 pb-8 h-full fixed left-0 top-0 h-full w-64 z-40 bg-surface/70 backdrop-blur-xl border-r border-white/10 shadow-none transition-all duration-300 ease-in-out">
+<div class="flex flex-col gap-1 px-4 mb-8">
+<div class="flex items-center gap-4 text-on-surface-variant px-6 py-3 hover:bg-white/5 rounded-xl cursor-pointer">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-label-caps text-label-caps">Home</span>
+</div>
+<div class="flex items-center gap-4 text-primary border-l-4 border-secondary bg-secondary/10 px-6 py-3 hover:bg-white/5 rounded-xl cursor-pointer">
+<span class="material-symbols-outlined" data-icon="explore">explore</span>
+<span class="font-label-caps text-label-caps">Explore</span>
+</div>
+<div class="flex items-center gap-4 text-on-surface-variant px-6 py-3 hover:bg-white/5 rounded-xl cursor-pointer">
+<span class="material-symbols-outlined" data-icon="subscriptions">subscriptions</span>
+<span class="font-label-caps text-label-caps">Subscriptions</span>
+</div>
+<div class="flex items-center gap-4 text-on-surface-variant px-6 py-3 hover:bg-white/5 rounded-xl cursor-pointer">
+<span class="material-symbols-outlined" data-icon="video_library">video_library</span>
+<span class="font-label-caps text-label-caps">Library</span>
+</div>
+<div class="flex items-center gap-4 text-on-surface-variant px-6 py-3 hover:bg-white/5 rounded-xl cursor-pointer">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+<span class="font-label-caps text-label-caps">History</span>
+</div>
+</div>
+<div class="mt-auto px-4 flex flex-col gap-1">
+<div class="px-6 py-4 bg-secondary/5 rounded-2xl border border-secondary/20 mb-4">
+<p class="font-label-caps text-[10px] text-secondary mb-1">PRO ACCESS</p>
+<p class="text-body-sm font-bold text-on-surface mb-3 leading-tight">Go Premium</p>
+<button class="w-full bg-secondary text-on-primary py-2 rounded-lg text-label-caps font-bold active:scale-95 transition-transform">UPGRADE</button>
+</div>
+<div class="flex items-center gap-4 text-on-surface-variant px-6 py-3 hover:bg-white/5 rounded-xl cursor-pointer">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-label-caps text-label-caps">Settings</span>
+</div>
+<div class="flex items-center gap-4 text-on-surface-variant px-6 py-3 hover:bg-white/5 rounded-xl cursor-pointer">
+<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+<span class="font-label-caps text-label-caps">Help</span>
+</div>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="md:ml-64 pt-24 px-gutter pb-12 bg-background min-h-screen">
+<div class="max-w-[1600px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10">
+<!-- Left Column: Primary Video & Details -->
+<div class="lg:col-span-8 flex flex-col gap-8">
+<!-- Video Player Section -->
+<div class="relative w-full aspect-video glass-panel rounded-3xl overflow-hidden video-glow group">
+<img class="w-full h-full object-cover" data-alt="A wide-angle cinematic shot of a futuristic cyberpunk city at night. Towering skyscrapers with glowing blue and pink neon lights reflect on a rainy, dark asphalt street. The lighting is moody and high-contrast, with a deep indigo sky. The aesthetic is ultra-modern, high-tech, and immersive, with a sense of motion and digital energy." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBbQQZ3iQ1VmRCEJJndmlov4mjzFCanFQ2F2iqEJtZpPhcBa482Ey7HwdZhlBi5QE4KatBXwM4AHsuYwy_Mvm2QblAjluknt7nuVpqunDj2mp43AT7GxberjBJQsPVDLOByv90mqJhxZifHbE38vzHYdP4B-wd0hwOSIFo6nqEu_Ob1wa0a8_nK29lth2YkAmtZaR278s0ALbMGYYTZFXedZCObffBErW_p06s7I0hAneWdyM4mxcz9tOC9hjbHeQbDzSmuGvswM4A"/>
+<!-- Overlay Controls -->
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+<!-- Progress Bar -->
+<div class="w-full h-1 bg-white/20 rounded-full mb-6 relative group/bar cursor-pointer">
+<div class="absolute left-0 top-0 h-full w-[65%] bg-secondary shadow-[0_0_10px_rgba(137,206,255,0.8)] rounded-full"></div>
+<div class="absolute left-[65%] top-1/2 -translate-y-1/2 w-4 h-4 bg-secondary rounded-full border-2 border-white shadow-lg opacity-0 group-hover/bar:opacity-100 transition-opacity"></div>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-6">
+<span class="material-symbols-outlined text-white cursor-pointer" data-icon="play_arrow" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+<span class="material-symbols-outlined text-white cursor-pointer" data-icon="skip_next" style="font-variation-settings: 'FILL' 1;">skip_next</span>
+<span class="material-symbols-outlined text-white cursor-pointer" data-icon="volume_up" style="font-variation-settings: 'FILL' 1;">volume_up</span>
+<span class="font-label-caps text-white text-[11px]">12:45 / 18:20</span>
+</div>
+<div class="flex items-center gap-6">
+<span class="material-symbols-outlined text-white cursor-pointer" data-icon="settings">settings</span>
+<span class="material-symbols-outlined text-white cursor-pointer" data-icon="fullscreen">fullscreen</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Video Info Section -->
+<div class="flex flex-col gap-6">
+<div class="flex flex-col gap-2">
+<h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">SYNTHETIC HORIZONS: THE FUTURE OF NEURAL ARCHITECTURE</h1>
+<div class="flex items-center gap-4 text-on-surface-variant font-label-caps text-[11px]">
+<span>1.2M VIEWS</span>
+<span class="w-1 h-1 bg-white/20 rounded-full"></span>
+<span>STREAMED 12 HOURS AGO</span>
+<span class="w-1 h-1 bg-white/20 rounded-full"></span>
+<span class="text-secondary">#TECH #NEURAL #FUTURE</span>
+</div>
+</div>
+<!-- Creator & Actions -->
+<div class="flex flex-wrap items-center justify-between gap-6 border-y border-white/5 py-6">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full overflow-hidden border-2 border-secondary/30">
+<img alt="Creator Avatar" data-alt="A portrait of a minimalist digital artist wearing a sleek, high-neck black technical jacket. The background is a clean, dark gray studio with soft, diffused top-down lighting. The individual has a focused, professional expression. The overall mood is sophisticated, tech-oriented, and contemporary." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBqw-oxalMtiARaw_ifNTMf7HkbQ0H3qq6BRu7g27tmlUYx6NUAFk1zcRVgkouysfoa43beX-MGr_cMKFeSFp1HowaEvj8m9PlG5kjrB2H_N1YFXev7ikM9Hh1oDAtC4Hg4j5rVbDA2HgpdWROiaAQKMMNmKoxdNuJ1R9kOMsObw5R9Y_MVLLhKO6_oAZUNjbJ9vvG8lSp2Ea6R7xcL5qYHfZJDL9Ws41P6wj1KPiIzUHj0j-Vt_TlXAY003fSgPRA5YwVtTfkIaR8"/>
+</div>
+<div>
+<h3 class="font-title-md text-title-md text-on-surface flex items-center gap-1">
+                                    NEURAL CORE 
+                                    <span class="material-symbols-outlined text-secondary text-sm" data-icon="verified" style="font-variation-settings: 'FILL' 1;">verified</span>
+</h3>
+<p class="text-body-sm text-on-surface-variant font-label-caps">2.4M SUBSCRIBERS</p>
+</div>
+<button class="ml-4 px-6 py-2 bg-on-surface text-surface font-bold rounded-full text-body-sm hover:scale-105 transition-transform active:scale-95">SUBSCRIBE</button>
+</div>
+<div class="flex items-center gap-3">
+<button class="flex items-center gap-2 bg-white/5 border border-white/10 px-5 py-2 rounded-full hover:bg-white/10 transition-colors">
+<span class="material-symbols-outlined" data-icon="thumb_up">thumb_up</span>
+<span class="font-label-caps">42K</span>
+</button>
+<button class="flex items-center gap-2 bg-white/5 border border-white/10 px-5 py-2 rounded-full hover:bg-white/10 transition-colors">
+<span class="material-symbols-outlined" data-icon="share">share</span>
+<span class="font-label-caps">SHARE</span>
+</button>
+<button class="p-2 bg-white/5 border border-white/10 rounded-full hover:bg-white/10 transition-colors">
+<span class="material-symbols-outlined" data-icon="more_horiz">more_horiz</span>
+</button>
+</div>
+</div>
+<!-- Comment Section -->
+<div class="flex flex-col gap-8">
+<div class="flex items-center justify-between">
+<h2 class="font-title-md text-title-md text-on-surface">3,248 COMMENTS</h2>
+<button class="flex items-center gap-2 text-on-surface-variant hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined" data-icon="sort">sort</span>
+<span class="font-label-caps">SORT BY</span>
+</button>
+</div>
+<!-- Add Comment -->
+<div class="flex gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container-high shrink-0 overflow-hidden border border-white/10">
+<img alt="User profile" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDP7KfQ_PeRc_85ZDNm8kRDCsZeYeokzYYUg0LIZYI9sDIOb2Vs1dXjnOJpBTy0WeI3q-HzsdU0hoM6YwjCU0r2uqwNg1jvO0sd9heu3v-wzPDpk92HpNW3c5aKDwWsPiY83bV0lvWJA4KpEdLooBYXlxOwPuRL7Ph0I6a-zAgP6iSpu1_oGSSf8q5FZm-Srj97s0FwNGghAJFSGx-1RXXDX3u5WQD5_QEDVDsbdJYgpPRhPUXzrQ1l6KoHkrNM0NGA-SeXPckuwDA"/>
+</div>
+<div class="w-full flex flex-col gap-2">
+<input class="bg-transparent border-b border-white/10 focus:border-secondary outline-none py-2 text-body-sm w-full transition-colors" placeholder="Add a comment..." type="text"/>
+<div class="flex justify-end gap-3 mt-2">
+<button class="px-4 py-1.5 text-label-caps text-on-surface-variant hover:text-on-surface transition-colors">CANCEL</button>
+<button class="px-4 py-1.5 text-label-caps bg-secondary text-on-primary font-bold rounded-lg opacity-50 cursor-not-allowed">COMMENT</button>
+</div>
+</div>
+</div>
+<!-- Threaded Comments -->
+<div class="space-y-8">
+<div class="flex gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container-high shrink-0 overflow-hidden">
+<img alt="Commenter" data-alt="A portrait of a male-presenting individual with glasses and a friendly, tech-savvy appearance. The background is a softly lit domestic space with plants and warm ambient light. High-end portraiture with professional lighting and color grading." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDsx9jpI90mO7a5TYSYn5Qzm0qwGXexZ9Q6CIEwiWpblN7QYAzSRc5Rqdw6jyAzTIFKWxoG_7jZHv0WWcSef1VKJKNh20s4KAfv6diMbg4oK95NjEhsCGD1KQGel0zW7L9x3qC00Py-FGsl_z61xLm8KOgb9D2m_PBH5C5kXoOMv8TKFuWrTRLQ6RgZXOZo5A6BNPKJx-d1moZkdw9eCChFSZGlZkQUjpThGyTaenbNIqNVrLHKvRVOHJHgT6mmnKXBgSMBziOFXG8"/>
+</div>
+<div class="flex flex-col gap-2">
+<div class="flex items-center gap-2">
+<span class="text-body-sm font-bold text-on-surface">DigitalNomad_88</span>
+<span class="text-[10px] font-label-caps text-on-surface-variant">2 HOURS AGO</span>
+</div>
+<p class="text-body-sm text-on-surface-variant leading-relaxed">The breakdown of the latent space representation at 08:24 is absolutely mind-blowing. I haven't seen neural architecture visualized this clearly before.</p>
+<div class="flex items-center gap-4 mt-1">
+<div class="flex items-center gap-1 text-on-surface-variant hover:text-secondary cursor-pointer transition-colors">
+<span class="material-symbols-outlined text-sm" data-icon="thumb_up">thumb_up</span>
+<span class="text-[10px] font-label-caps">1.2K</span>
+</div>
+<span class="text-[10px] font-label-caps text-on-surface-variant hover:text-on-surface cursor-pointer">REPLY</span>
+</div>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container-high shrink-0 overflow-hidden">
+<img alt="Commenter" data-alt="A sophisticated woman with a focused expression looking at a computer screen. The soft glow of the monitor illuminates her face with cool blue and white light. The background is a minimalist home office with clean lines and high-end tech accessories. Professional and intellectual mood." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDu2I9mfsI9rYAw3OU5WsoGGdHQd_5ZSn_iC-3XbNkzYos9R87CUM4kobJd2yPTd3i0UDEYhyuY-8daq3kWQrdvxkjEbsT9hp72Q5yvVG9ogyJf9VjHr5YKcmIxIjy-sVnuMBjsf8OH08vmoMjmYzgFA2lAAcMb6IYuj7FgCdKC8dwd8Gr9IsMjYcDXlcCGagohImJf2joFbHTc9IZs_TOPCFhh2Vw88Zo3t66278rNZuCmAuw3p85B6eil9lfjgG3eAI7b7Lloyy8"/>
+</div>
+<div class="flex flex-col gap-2">
+<div class="flex items-center gap-2">
+<span class="text-body-sm font-bold text-on-surface">AI_Researcher_Sarah</span>
+<span class="text-[10px] font-label-caps text-on-surface-variant">5 HOURS AGO</span>
+</div>
+<p class="text-body-sm text-on-surface-variant leading-relaxed">Excellent production value! Could you do a deep dive into the transformer layers used for these visual generations next?</p>
+<div class="flex items-center gap-4 mt-1">
+<div class="flex items-center gap-1 text-on-surface-variant hover:text-secondary cursor-pointer transition-colors">
+<span class="material-symbols-outlined text-sm" data-icon="thumb_up">thumb_up</span>
+<span class="text-[10px] font-label-caps">856</span>
+</div>
+<span class="text-[10px] font-label-caps text-on-surface-variant hover:text-on-surface cursor-pointer">REPLY</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Up Next & Sidebar -->
+<div class="lg:col-span-4 flex flex-col gap-6">
+<div class="flex items-center justify-between mb-2">
+<h2 class="font-label-caps text-label-caps text-on-surface tracking-widest">UP NEXT</h2>
+<div class="flex items-center gap-2">
+<span class="text-[10px] font-label-caps text-on-surface-variant">AUTOPLAY</span>
+<div class="w-8 h-4 bg-secondary rounded-full relative cursor-pointer">
+<div class="absolute right-0.5 top-0.5 w-3 h-3 bg-white rounded-full"></div>
+</div>
+</div>
+</div>
+<!-- Suggested Video Cards -->
+<div class="flex flex-col gap-5">
+<!-- Suggestion 1 -->
+<div class="flex gap-4 group cursor-pointer">
+<div class="relative w-40 h-24 rounded-xl overflow-hidden shrink-0 border border-white/10 group-hover:border-secondary/50 transition-colors">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A minimalist abstract render of flowing digital waves in shades of deep blue and electric cyan. The lighting is ethereal and soft, creating a sense of fluid motion and depth. The aesthetic is clean, sophisticated, and high-tech, fitting a premium digital content platform." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpgRg1bQM-Oyxlexy3BoXjGf_g4euwGrcx8uTfmT-K7IlyyUNehG1NgPlw7TvMyTDd3Q3CJt0py5OLnpstcv7WCu7x1E0i0UU0AYveVvvKMupeB6zusTs-klepjTgqZnLd5q-4ju_qbuIoTbZsjLkd0usE5Nl_Qk-Mj0JT-FTjzOdWpQrtpNflbNdhuq9rVRigLliSbi2apZOrGxhsov1kIl-biPXeV5LwwPSV7artjKnhsZfKVxsnu4c3aB-oZwNK5ZOkl6iJUOo"/>
+<div class="absolute bottom-1 right-1 bg-black/80 px-1.5 py-0.5 rounded text-[10px] font-label-caps text-white">22:15</div>
+</div>
+<div class="flex flex-col gap-1">
+<h4 class="text-body-sm font-bold text-on-surface line-clamp-2 leading-tight group-hover:text-secondary transition-colors">Decoding Neural Networks: Part 4</h4>
+<p class="text-[11px] font-label-caps text-on-surface-variant">Neural Core</p>
+<div class="flex items-center gap-2 text-[10px] font-label-caps text-on-surface-variant/60">
+<span>800K VIEWS</span>
+<span>•</span>
+<span>2 DAYS AGO</span>
+</div>
+</div>
+</div>
+<!-- Suggestion 2 -->
+<div class="flex gap-4 group cursor-pointer">
+<div class="relative w-40 h-24 rounded-xl overflow-hidden shrink-0 border border-white/10 group-hover:border-secondary/50 transition-colors">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Close-up of high-tech computer hardware with glowing blue circuit paths. The lighting is focused and dramatic, highlighting the intricate details of the electronic components. Minimalist dark aesthetic with professional shallow depth of field. High-tech, sophisticated feel." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBARUemABm37EUDaSv5Zc4f7B95IcrprEx5ZEkrE-UKmeM8gJcQrxw5gdhUs6Br3GiBAP_4whC08wEOFgmeUSWGQeMyWZ2yUsj39hgwnAw4OlFGoIJ2NBl0SOHShQ2r1uYPogCUuXhP6QCp23Q2nVjt3m7aXwTFi5d6T-1jicjAkUl8Top0TrerEnYYNVfpSnSjBvvqjoz_ff0C15ssh55ndRUDe-o1ReabdpFxLkCB6rKT5Aj0AM6y94YwRe6zCe1siZ5LCMEWBHc"/>
+<div class="absolute bottom-1 right-1 bg-black/80 px-1.5 py-0.5 rounded text-[10px] font-label-caps text-white">15:40</div>
+</div>
+<div class="flex flex-col gap-1">
+<h4 class="text-body-sm font-bold text-on-surface line-clamp-2 leading-tight group-hover:text-secondary transition-colors">The Silicon Frontier: Hardware for AI</h4>
+<p class="text-[11px] font-label-caps text-on-surface-variant">TechSpec Global</p>
+<div class="flex items-center gap-2 text-[10px] font-label-caps text-on-surface-variant/60">
+<span>240K VIEWS</span>
+<span>•</span>
+<span>1 WEEK AGO</span>
+</div>
+</div>
+</div>
+<!-- Suggestion 3 -->
+<div class="flex gap-4 group cursor-pointer">
+<div class="relative w-40 h-24 rounded-xl overflow-hidden shrink-0 border border-white/10 group-hover:border-secondary/50 transition-colors">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A wide cinematic view of Earth from space, with glowing interconnected data lines representing a global network. Deep blue and violet tones with bright, starry background. The lighting is vast and ethereal, creating a sense of global connectivity and high-tech advancement." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBN14L72Sf4TOuuGeCq1PidHCBYSXrD0nwiXdm2LWVeZOIG90NqROPHpp-_ohWkXMECBOrPxiqSrIVCws8tcTlwlETGhkwWGgvImqp3uvGqZMXDhnpxFtpQIQLF_ZiNpp0v7lMIBaMenx_4Wv8kHLi_4pr2ZhmJz-uhX5i3cNbRP6nRWVgURFjf7zN-iT9eN0AGsRQXKg3NEUGKpEXiZ-5uR5WStHBXqf2ek8Z8jshhDdytoK6ahAl3bA8fuHb8Ebp7HdiLU2WWRyo"/>
+<div class="absolute bottom-1 right-1 bg-black/80 px-1.5 py-0.5 rounded text-[10px] font-label-caps text-white">10:05</div>
+</div>
+<div class="flex flex-col gap-1">
+<h4 class="text-body-sm font-bold text-on-surface line-clamp-2 leading-tight group-hover:text-secondary transition-colors">Connectivity 2.0: Global Neural Grid</h4>
+<p class="text-[11px] font-label-caps text-on-surface-variant">Future Sync</p>
+<div class="flex items-center gap-2 text-[10px] font-label-caps text-on-surface-variant/60">
+<span>1.5M VIEWS</span>
+<span>•</span>
+<span>4 DAYS AGO</span>
+</div>
+</div>
+</div>
+<!-- Suggestion 4 -->
+<div class="flex gap-4 group cursor-pointer">
+<div class="relative w-40 h-24 rounded-xl overflow-hidden shrink-0 border border-white/10 group-hover:border-secondary/50 transition-colors">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A dark coder's workspace with multiple monitors displaying lines of glowing code in blue and amber. The room is dimly lit, with a focus on the screens and a sleek mechanical keyboard. The atmosphere is professional, focused, and high-tech, with a sophisticated minimalism." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDzYtC_xoxTKsdJIXePDnkpjtem7TPzsXlCe9DPZn0nKCB0CAWAWDBXlneqo-WYyOriKGWrtXji9xVPgP3nb4K9_xJ7pLXiqFMIQ2pgzuc9OozPpxue9SK9PE_I5mGCt8zX99VyKAQLemhI-5i23jDHR5RsJnzGfCCStZ6qMeCrzM0kJjSSAz0qQ1ZvDP2StI17QFhdEPRi9-Gt-jdNrVZ4R0iXMGS4ViVJOwr8YOgJADGs-uLg6C_i945mfaSSewpcsKtGs8TMSew"/>
+<div class="absolute bottom-1 right-1 bg-black/80 px-1.5 py-0.5 rounded text-[10px] font-label-caps text-white">32:50</div>
+</div>
+<div class="flex flex-col gap-1">
+<h4 class="text-body-sm font-bold text-on-surface line-clamp-2 leading-tight group-hover:text-secondary transition-colors">Advanced Python for Machine Learning</h4>
+<p class="text-[11px] font-label-caps text-on-surface-variant">Code Academy</p>
+<div class="flex items-center gap-2 text-[10px] font-label-caps text-on-surface-variant/60">
+<span>50K VIEWS</span>
+<span>•</span>
+<span>1 MONTH AGO</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Categories/Tags -->
+<div class="mt-4 pt-6 border-t border-white/5 flex flex-wrap gap-2">
+<span class="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[10px] font-label-caps text-on-surface-variant hover:bg-secondary/10 hover:border-secondary/30 hover:text-secondary transition-colors cursor-pointer">ARTIFICIAL INTELLIGENCE</span>
+<span class="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[10px] font-label-caps text-on-surface-variant hover:bg-secondary/10 hover:border-secondary/30 hover:text-secondary transition-colors cursor-pointer">NEURAL NETS</span>
+<span class="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[10px] font-label-caps text-on-surface-variant hover:bg-secondary/10 hover:border-secondary/30 hover:text-secondary transition-colors cursor-pointer">FUTURE TECH</span>
+<span class="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[10px] font-label-caps text-on-surface-variant hover:bg-secondary/10 hover:border-secondary/30 hover:text-secondary transition-colors cursor-pointer">ARCHITECTURE</span>
+<span class="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[10px] font-label-caps text-on-surface-variant hover:bg-secondary/10 hover:border-secondary/30 hover:text-secondary transition-colors cursor-pointer">VISUALS</span>
+</div>
+</div>
+</div>
+</main>
+<!-- FAB for quick action (aligned with prompt requirement) -->
+<button class="fixed bottom-8 right-8 w-14 h-14 bg-secondary text-on-primary rounded-full shadow-[0_0_20px_rgba(137,206,255,0.4)] flex items-center justify-center hover:scale-110 active:scale-95 transition-all z-50">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+</button>
+</body></html>

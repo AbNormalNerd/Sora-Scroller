@@ -1,0 +1,13 @@
+node_modules/
+dist/
+Sora Memories/
+*.mp4
+*.webm
+*.mov
+*.m4v
+
+.env
+.env.*
+*.log
+.DS_Store
+Thumbs.db

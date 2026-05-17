@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary": "#003547",
+                        "surface-container-high": "#2a2a2a",
+                        "on-primary-fixed": "#001e2b",
+                        "surface-variant": "#353534",
+                        "surface-container-lowest": "#0e0e0e",
+                        "surface-bright": "#3a3939",
+                        "secondary": "#89ceff",
+                        "on-error": "#690005",
+                        "surface-tint": "#7bd1fa",
+                        "on-primary-fixed-variant": "#004d66",
+                        "on-tertiary-fixed": "#2a1800",
+                        "primary-fixed": "#c0e8ff",
+                        "error": "#ffb4ab",
+                        "inverse-surface": "#e5e2e1",
+                        "primary-container": "#7dd3fc",
+                        "primary-fixed-dim": "#7bd1fa",
+                        "on-tertiary-container": "#754b00",
+                        "error-container": "#93000a",
+                        "secondary-fixed-dim": "#89ceff",
+                        "outline-variant": "#3f484e",
+                        "on-secondary-container": "#00344e",
+                        "on-tertiary-fixed-variant": "#633f00",
+                        "on-error-container": "#ffdad6",
+                        "on-surface": "#e5e2e1",
+                        "surface-container-low": "#1c1b1b",
+                        "on-background": "#e5e2e1",
+                        "on-secondary": "#00344d",
+                        "inverse-primary": "#006686",
+                        "on-primary-container": "#005b78",
+                        "on-surface-variant": "#bec8ce",
+                        "secondary-fixed": "#c9e6ff",
+                        "primary": "#c5eaff",
+                        "secondary-container": "#00a2e6",
+                        "tertiary-fixed": "#ffddb5",
+                        "surface": "#131313",
+                        "tertiary-fixed-dim": "#fcba5e",
+                        "outline": "#899298",
+                        "tertiary-container": "#febc60",
+                        "background": "#131313",
+                        "tertiary": "#ffdfba",
+                        "surface-dim": "#131313",
+                        "on-tertiary": "#452b00",
+                        "on-secondary-fixed-variant": "#004c6e",
+                        "surface-container": "#201f1f",
+                        "on-secondary-fixed": "#001e2f",
+                        "surface-container-highest": "#353534",
+                        "inverse-on-surface": "#313030"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "player-max-width": "480px",
+                        "unit": "4px",
+                        "margin-desktop": "48px",
+                        "margin-mobile": "16px"
+                    },
+                    "fontFamily": {
+                        "label-caps": ["JetBrains Mono"],
+                        "headline-lg": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "title-md": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-lg-mobile": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-caps": ["12px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "headline-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "title-md": ["20px", {"lineHeight": "1.4", "fontWeight": "500"}],
+                        "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "body-lg": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "1.2", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(19, 19, 19, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .search-inner-glow {
+            box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface selection:bg-secondary/30">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-surface/70 backdrop-blur-xl border-b border-white/10 flex justify-between items-center px-gutter h-16 w-full">
+<div class="flex items-center gap-8">
+<span class="font-display-lg text-display-lg font-bold tracking-tighter text-primary">LUMINA</span>
+</div>
+<div class="flex items-center gap-6">
+<button class="hover:bg-white/10 transition-colors p-2 rounded-full active:scale-95 duration-150">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="upload">upload</span>
+</button>
+<button class="hover:bg-white/10 transition-colors p-2 rounded-full active:scale-95 duration-150">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="notifications">notifications</span>
+</button>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-white/20">
+<img alt="User profile" data-alt="A close-up portrait of a stylish person with a neutral expression, shot in a high-tech studio environment with soft blue rim lighting. The aesthetic is clean and modern, following a digital-first design language. The background is a deep, out-of-focus dark charcoal, emphasizing the subject's features in high clarity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCvMioDS1rbTvWCHydusDbsJ-1tFjjYvY0MRV8gzHXwq5tCrz6iXnYJdwy5roOgTVOkuz-EfyMMrqoliz-ktwbWEwEUDP4brqRt_bqseQHDo35AicBZ1HMTUiKNbI27kG2oF-5t3b3BkWBlpHLlEbgalR-WpnUVx1mzIQ-TGv0kMWhTSDfukrYX7gLpiOkLdXXYvjrTNj2X2wifEbnW9zuiZFQmRgxOiE54m46oeN8GdayX_txJ6w3MWV-z4ay_Jkup0RMWxb9t7gs"/>
+</div>
+</div>
+</nav>
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 h-full w-64 z-40 bg-surface/70 backdrop-blur-xl border-r border-white/10 flex flex-col pt-20 pb-8 h-full hidden md:flex">
+<div class="px-6 mb-8">
+<h2 class="font-headline-lg text-headline-lg text-primary">For You</h2>
+<p class="font-label-caps text-label-caps text-on-surface-variant opacity-70">Curated feed</p>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-4 text-on-surface-variant px-6 py-3 hover:bg-white/5 transition-all duration-300 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-label-caps text-label-caps">Home</span>
+</a>
+<a class="flex items-center gap-4 text-primary border-l-4 border-secondary bg-secondary/10 px-6 py-3 transition-all duration-300 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="explore">explore</span>
+<span class="font-label-caps text-label-caps">Explore</span>
+</a>
+<a class="flex items-center gap-4 text-on-surface-variant px-6 py-3 hover:bg-white/5 transition-all duration-300 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="subscriptions">subscriptions</span>
+<span class="font-label-caps text-label-caps">Subscriptions</span>
+</a>
+<a class="flex items-center gap-4 text-on-surface-variant px-6 py-3 hover:bg-white/5 transition-all duration-300 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="video_library">video_library</span>
+<span class="font-label-caps text-label-caps">Library</span>
+</a>
+<a class="flex items-center gap-4 text-on-surface-variant px-6 py-3 hover:bg-white/5 transition-all duration-300 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+<span class="font-label-caps text-label-caps">History</span>
+</a>
+</nav>
+<div class="px-6 mt-auto space-y-4">
+<button class="w-full py-3 bg-secondary text-on-primary rounded-xl font-bold font-label-caps hover:brightness-110 active:scale-95 transition-all">
+                Go Premium
+            </button>
+<div class="pt-4 border-t border-white/5 space-y-1">
+<a class="flex items-center gap-4 text-on-surface-variant py-2 hover:bg-white/5 px-2 rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-label-caps text-label-caps">Settings</span>
+</a>
+<a class="flex items-center gap-4 text-on-surface-variant py-2 hover:bg-white/5 px-2 rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+<span class="font-label-caps text-label-caps">Help</span>
+</a>
+</div>
+</div>
+</aside>
+<!-- Main Canvas -->
+<main class="md:ml-64 pt-16 min-h-screen">
+<div class="max-w-[1200px] mx-auto px-margin-mobile md:px-margin-desktop py-12">
+<!-- Hero Search Area -->
+<section class="flex flex-col items-center mb-16">
+<div class="w-full max-w-2xl relative">
+<div class="absolute inset-y-0 left-6 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-secondary" data-icon="search">search</span>
+</div>
+<input class="w-full h-16 pl-16 pr-6 bg-surface-container-low border border-white/10 rounded-full font-label-caps text-body-lg focus:ring-2 focus:ring-secondary/50 focus:border-secondary outline-none search-inner-glow transition-all" placeholder="Search cinematic shorts, creators, or tags..." type="text"/>
+</div>
+<!-- Trending Tags -->
+<div class="mt-8 flex flex-wrap justify-center gap-3">
+<span class="font-label-caps text-label-caps text-on-surface-variant mr-2 self-center">Trending Now:</span>
+<button class="px-4 py-2 rounded-full bg-secondary/10 border border-secondary/30 text-secondary font-label-caps hover:bg-secondary/20 transition-colors">#AIGen</button>
+<button class="px-4 py-2 rounded-full bg-secondary/10 border border-secondary/30 text-secondary font-label-caps hover:bg-secondary/20 transition-colors">#Cyberpunk2077</button>
+<button class="px-4 py-2 rounded-full bg-secondary/10 border border-secondary/30 text-secondary font-label-caps hover:bg-secondary/20 transition-colors">#AbstractMotion</button>
+<button class="px-4 py-2 rounded-full bg-secondary/10 border border-secondary/30 text-secondary font-label-caps hover:bg-secondary/20 transition-colors">#4KHDR</button>
+<button class="px-4 py-2 rounded-full bg-secondary/10 border border-secondary/30 text-secondary font-label-caps hover:bg-secondary/20 transition-colors">#MinimalistVibes</button>
+</div>
+</section>
+<!-- Content Layout: Sidebar Filters + Results Grid -->
+<div class="flex flex-col md:flex-row gap-8">
+<!-- Left Filters Sidebar -->
+<aside class="w-full md:w-64 flex-shrink-0 space-y-10">
+<div>
+<h3 class="font-label-caps text-label-caps text-primary mb-4 tracking-widest uppercase">Video Type</h3>
+<div class="space-y-3">
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="rounded border-white/20 bg-surface-container text-secondary focus:ring-secondary" type="checkbox"/>
+<span class="font-body-sm text-body-sm text-on-surface-variant group-hover:text-on-surface">Cinematic</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input checked="" class="rounded border-white/20 bg-surface-container text-secondary focus:ring-secondary" type="checkbox"/>
+<span class="font-body-sm text-body-sm text-on-surface-variant group-hover:text-on-surface">Motion Graphics</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="rounded border-white/20 bg-surface-container text-secondary focus:ring-secondary" type="checkbox"/>
+<span class="font-body-sm text-body-sm text-on-surface-variant group-hover:text-on-surface">AI Generated</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="rounded border-white/20 bg-surface-container text-secondary focus:ring-secondary" type="checkbox"/>
+<span class="font-body-sm text-body-sm text-on-surface-variant group-hover:text-on-surface">Live Stream</span>
+</label>
+</div>
+</div>
+<div>
+<h3 class="font-label-caps text-label-caps text-primary mb-4 tracking-widest uppercase">Date</h3>
+<div class="space-y-3">
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="border-white/20 bg-surface-container text-secondary focus:ring-secondary" name="date" type="radio"/>
+<span class="font-body-sm text-body-sm text-on-surface-variant group-hover:text-on-surface">Today</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input checked="" class="border-white/20 bg-surface-container text-secondary focus:ring-secondary" name="date" type="radio"/>
+<span class="font-body-sm text-body-sm text-on-surface-variant group-hover:text-on-surface">This Week</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="border-white/20 bg-surface-container text-secondary focus:ring-secondary" name="date" type="radio"/>
+<span class="font-body-sm text-body-sm text-on-surface-variant group-hover:text-on-surface">This Month</span>
+</label>
+</div>
+</div>
+<div>
+<h3 class="font-label-caps text-label-caps text-primary mb-4 tracking-widest uppercase">Duration</h3>
+<div class="space-y-3">
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="rounded border-white/20 bg-surface-container text-secondary focus:ring-secondary" type="checkbox"/>
+<span class="font-body-sm text-body-sm text-on-surface-variant group-hover:text-on-surface">Short (&lt; 1m)</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input checked="" class="rounded border-white/20 bg-surface-container text-secondary focus:ring-secondary" type="checkbox"/>
+<span class="font-body-sm text-body-sm text-on-surface-variant group-hover:text-on-surface">Medium (1-5m)</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="rounded border-white/20 bg-surface-container text-secondary focus:ring-secondary" type="checkbox"/>
+<span class="font-body-sm text-body-sm text-on-surface-variant group-hover:text-on-surface">Long (5m+)</span>
+</label>
+</div>
+</div>
+</aside>
+<!-- Search Results Grid -->
+<div class="flex-1">
+<div class="flex items-center justify-between mb-8">
+<h2 class="font-title-md text-title-md">Results for <span class="text-secondary italic">"Digital Landscapes"</span></h2>
+<span class="font-label-caps text-label-caps text-on-surface-variant">128 Results found</span>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Result Card 1 -->
+<div class="group relative bg-surface-container-low rounded-xl overflow-hidden border border-white/5 hover:border-secondary/50 transition-all duration-300">
+<div class="aspect-[9/16] relative">
+<img class="w-full h-full object-cover" data-alt="A mesmerizing vertical composition of shifting abstract silk-like waves in shades of deep indigo and electric baby blue. The lighting creates high-contrast highlights that follow the fluid motion, evoking a high-tech digital atmosphere. The visual style is ultra-modern and minimalist, with a 4K resolution feel and a calm, immersive mood." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDYeYBu2gnMWre40kLDHgR73PpXd071IjnHHLsSkHYxuosAuTOeVsm67SLWoPL6LIE-VV1tJLFAQ_jeGOVq8r0quotPh84kMnJsujYOSdmjMuHgW0P_QpyJ0LHa5iC-6nz35ws5z1Lc2E1vDw6WvTPHjqAZngfRYYif90c_N9bO7SbJFoRUQmHkj8wrT4kRV0hl5N4pCYvF1TBxyB81O0t0WFxlEMUhMY0TM8cYbTa1EhC_SejihUV6WSJ1WSmZCwy87lh7flAMIa4"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity"></div>
+<div class="absolute top-4 right-4 bg-black/50 backdrop-blur-md px-2 py-1 rounded font-label-caps text-[10px] text-white">00:58</div>
+<div class="absolute bottom-4 left-4 right-4">
+<h4 class="font-body-lg text-body-lg text-white font-semibold line-clamp-2">Neon Fluidity: An Experiment in Light</h4>
+<p class="font-label-caps text-[10px] text-secondary mt-1">@LuminaDesign</p>
+</div>
+</div>
+</div>
+<!-- Result Card 2 -->
+<div class="group relative bg-surface-container-low rounded-xl overflow-hidden border border-white/5 hover:border-secondary/50 transition-all duration-300">
+<div class="aspect-[9/16] relative">
+<img class="w-full h-full object-cover" data-alt="A breathtaking digital landscape depicting a geometric mountain range under a vast, glowing celestial nebula. The color palette features deep blacks contrasted with vibrant baby blue and subtle hints of violet. The scene is illuminated by soft, diffuse light from the nebula, creating a serene and technologically sophisticated atmosphere in a minimalist, glassmorphic style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDNqX63-3WNWsX-0Oh1P1i_JBmyPjh6gEo_ozMAuTqbKLSp7o4UWcZukYYKc0rDZaayKIqx984HxE4IliVrXysLi9tN5_h00C3T9xDiTlxXU9Bn9Ltc928vu5NMN8HXmNFLrZDyuxwxvXYMupR6w_Bu0G2VpTWwKj4L_ScmZ5pXlhoOZOVZl4PiNI8CmJLwDYL94Q7cXXQvnkFOB_mss7OCxypP5_MMXyoDZ-Cxqtgpf3Ya0kfTn_G8NUGSZXDEUzazDfFHnflw2i0"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity"></div>
+<div class="absolute top-4 right-4 bg-black/50 backdrop-blur-md px-2 py-1 rounded font-label-caps text-[10px] text-white">01:24</div>
+<div class="absolute bottom-4 left-4 right-4">
+<h4 class="font-body-lg text-body-lg text-white font-semibold line-clamp-2">Digital Horizons: Episode 04</h4>
+<p class="font-label-caps text-[10px] text-secondary mt-1">@EtherVoid</p>
+</div>
+</div>
+</div>
+<!-- Result Card 3 -->
+<div class="group relative bg-surface-container-low rounded-xl overflow-hidden border border-white/5 hover:border-secondary/50 transition-all duration-300">
+<div class="aspect-[9/16] relative">
+<img class="w-full h-full object-cover" data-alt="A complex network of glowing data streams and fiber optic filaments pulsating with baby blue light against a pitch-black void. The composition uses shallow depth of field to create a bokeh effect of light particles, symbolizing high-speed connectivity and advanced computing. The mood is high-energy yet aesthetically focused and clean." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDrOya-6cNXk6pt9hNSuTGprd9TV9BPAFmg-O-MYvmBLgyOsnUqqvdTd0JW6lJNp7uzoHgAZfU0dlXXRcKUhBLjqJ2VzJ7O5ANZabPgSdgvWdZIDiOfyMwQmVgIhCZA-jN90fXPX1nhjsKx1uXpSykk5E84eSBPl94m8VbZzHc_9EBqZ8BY0R1MGXBBOW_uFJgNMKGXVmGmbAcB15PvDfN0gM9sYb_VMmD-DOpbBEwpXUn9KbC5N41dN6sSUDx7otL3ReMnlMYoWT0"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity"></div>
+<div class="absolute top-4 right-4 bg-black/50 backdrop-blur-md px-2 py-1 rounded font-label-caps text-[10px] text-white">00:45</div>
+<div class="absolute bottom-4 left-4 right-4">
+<h4 class="font-body-lg text-body-lg text-white font-semibold line-clamp-2">The Pulse of Connectivity</h4>
+<p class="font-label-caps text-[10px] text-secondary mt-1">@TechNexus</p>
+</div>
+</div>
+</div>
+<!-- Result Card 4 -->
+<div class="group relative bg-surface-container-low rounded-xl overflow-hidden border border-white/5 hover:border-secondary/50 transition-all duration-300">
+<div class="aspect-[9/16] relative">
+<img class="w-full h-full object-cover" data-alt="An abstract, minimalist 3D sculpture of chrome spheres floating in a void, reflecting a cool blue light source. The reflections are sharp and precise, emphasizing the high-tech, hardware-like aesthetic of the design. The lighting is focused and directional, creating deep shadows and bright, crisp edges on the metallic surfaces." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBBx5ymZ6XN577-mKIa0mTAS8YS1m-Kzf9uObXvIZy7EqMHEMJMVKqcl7R41ZeFbIfwGfuvmhPTQEFoOoPWYgvgdEyyDbWpKknRfMP9fS_HvD9RfaZTsUfox7hsLL5-eY9quvsfQtyv551FOZoI95L8pUZ4x3ekpkvdlYLEIrandIWVKssp6H7XMqhALvSP31TonCzq_0ycUEgyJE7K4_d9D7KNauy2PbEIE5jt7zvv4vuTSguZ0EaeAPNs9mS3VeySmNq9BZXgWZI"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity"></div>
+<div class="absolute top-4 right-4 bg-black/50 backdrop-blur-md px-2 py-1 rounded font-label-caps text-[10px] text-white">02:10</div>
+<div class="absolute bottom-4 left-4 right-4">
+<h4 class="font-body-lg text-body-lg text-white font-semibold line-clamp-2">Symmetry in Motion</h4>
+<p class="font-label-caps text-[10px] text-secondary mt-1">@ChromeLab</p>
+</div>
+</div>
+</div>
+<!-- Result Card 5 -->
+<div class="group relative bg-surface-container-low rounded-xl overflow-hidden border border-white/5 hover:border-secondary/50 transition-all duration-300">
+<div class="aspect-[9/16] relative">
+<img class="w-full h-full object-cover" data-alt="A macro shot of liquid ferrofluid interacting with magnetic fields, forming sharp, organic-looking spikes. The fluid is highlighted by a cool, electric baby blue rim light that defines the complex geometry. The background is a solid deep black, allowing the intricate, dark patterns of the fluid to stand out with high clarity and a sophisticated technical feel." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBbs3AT9W1elg4OpY--3ncFUo1GEOMxZyHlfNMmcfWITBtuWU_lk2GvWL5E5thp2bWeyRT_jSLQ8ghfcyPOCMxj8gnXFrWoaKufgpCHMIGuJ0D4p1H_7BKEi3VpSuud-NGClCZagcRBLbc3R6jU-pCFl7VXE0dOnoz4GUOY5D2T35I1kymQ4f74yXIFrKDkQ9XkjpfJhuGNKhkjFryOa6DuuhZyLSrDNCb9kwCZ8IJ3eafOJd_tYyOldH6P_OLz0RNvUniteQrEUs0"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity"></div>
+<div class="absolute top-4 right-4 bg-black/50 backdrop-blur-md px-2 py-1 rounded font-label-caps text-[10px] text-white">01:05</div>
+<div class="absolute bottom-4 left-4 right-4">
+<h4 class="font-body-lg text-body-lg text-white font-semibold line-clamp-2">Magnetic Attraction: Visuals</h4>
+<p class="font-label-caps text-[10px] text-secondary mt-1">@FluxCreative</p>
+</div>
+</div>
+</div>
+<!-- Result Card 6 -->
+<div class="group relative bg-surface-container-low rounded-xl overflow-hidden border border-white/5 hover:border-secondary/50 transition-all duration-300">
+<div class="aspect-[9/16] relative">
+<img class="w-full h-full object-cover" data-alt="An abstract 3D render of crystalline structures growing in a rhythmic pattern. The crystals are translucent with a glass-like quality, refracting light into shades of baby blue and deep obsidian. The overall style is minimalist and clean, with a focus on geometric precision and mathematical beauty, set against a dark, featureless backdrop." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCAHOmuBZftAuL9WPKdOi2hZjVk9blqJUMSIZNjmA6FbrAA1CnnPwf0qg8xmCnoWLJn0PUbjYhJTgLv1Olxn44hsVR2CowG6FlG0VtBSu1EsjJQj79vrJZx_qsmAykYHTlhZBtyB52YOAjK5d0LC2-nKeMHpv9OHnBfgE0C8pfLhAFM9Hxqo1qWuWFs5XmZdZK1PSK3X1WWmMEIS-KqHl4GGo8tMXbGNPm8S4KEur6dqo3eu7JCgmgRVCjh22S8m1JAugjkyFux_fo"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity"></div>
+<div class="absolute top-4 right-4 bg-black/50 backdrop-blur-md px-2 py-1 rounded font-label-caps text-[10px] text-white">00:30</div>
+<div class="absolute bottom-4 left-4 right-4">
+<h4 class="font-body-lg text-body-lg text-white font-semibold line-clamp-2">Crystal Growth Simulation</h4>
+<p class="font-label-caps text-[10px] text-secondary mt-1">@GenArtStudio</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Load More -->
+<div class="mt-12 flex justify-center">
+<button class="px-8 py-4 bg-surface-container-high border border-white/10 rounded-full font-label-caps text-label-caps text-on-surface hover:bg-white/5 hover:border-secondary/30 transition-all active:scale-95">
+                            Show More Results
+                        </button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="fixed bottom-0 w-full z-50 bg-surface/70 backdrop-blur-xl md:hidden flex justify-around items-center h-16 border-t border-white/10">
+<a class="flex flex-col items-center gap-1 text-on-surface-variant" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="text-[10px] font-label-caps">Home</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-primary" href="#">
+<span class="material-symbols-outlined" data-icon="explore">explore</span>
+<span class="text-[10px] font-label-caps">Explore</span>
+</a>
+<button class="flex items-center justify-center w-12 h-12 bg-secondary rounded-full text-on-primary -mt-8 shadow-lg shadow-secondary/20">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+</button>
+<a class="flex flex-col items-center gap-1 text-on-surface-variant" href="#">
+<span class="material-symbols-outlined" data-icon="subscriptions">subscriptions</span>
+<span class="text-[10px] font-label-caps">Subs</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-on-surface-variant" href="#">
+<span class="material-symbols-outlined" data-icon="video_library">video_library</span>
+<span class="text-[10px] font-label-caps">Library</span>
+</a>
+</nav>
+</body></html>

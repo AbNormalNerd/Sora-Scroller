@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "on-primary": "#003547",
+                "surface-container-high": "#2a2a2a",
+                "on-primary-fixed": "#001e2b",
+                "surface-variant": "#353534",
+                "surface-container-lowest": "#0e0e0e",
+                "surface-bright": "#3a3939",
+                "secondary": "#89ceff",
+                "on-error": "#690005",
+                "surface-tint": "#7bd1fa",
+                "on-primary-fixed-variant": "#004d66",
+                "on-tertiary-fixed": "#2a1800",
+                "primary-fixed": "#c0e8ff",
+                "error": "#ffb4ab",
+                "inverse-surface": "#e5e2e1",
+                "primary-container": "#7dd3fc",
+                "primary-fixed-dim": "#7bd1fa",
+                "on-tertiary-container": "#754b00",
+                "error-container": "#93000a",
+                "secondary-fixed-dim": "#89ceff",
+                "outline-variant": "#3f484e",
+                "on-secondary-container": "#00344e",
+                "on-tertiary-fixed-variant": "#633f00",
+                "on-error-container": "#ffdad6",
+                "on-surface": "#e5e2e1",
+                "surface-container-low": "#1c1b1b",
+                "on-background": "#e5e2e1",
+                "on-secondary": "#00344d",
+                "inverse-primary": "#006686",
+                "on-primary-container": "#005b78",
+                "on-surface-variant": "#bec8ce",
+                "secondary-fixed": "#c9e6ff",
+                "primary": "#c5eaff",
+                "secondary-container": "#00a2e6",
+                "tertiary-fixed": "#ffddb5",
+                "surface": "#131313",
+                "tertiary-fixed-dim": "#fcba5e",
+                "outline": "#899298",
+                "tertiary-container": "#febc60",
+                "background": "#131313",
+                "tertiary": "#ffdfba",
+                "surface-dim": "#131313",
+                "on-tertiary": "#452b00",
+                "on-secondary-fixed-variant": "#004c6e",
+                "surface-container": "#201f1f",
+                "on-secondary-fixed": "#001e2f",
+                "surface-container-highest": "#353534",
+                "inverse-on-surface": "#313030"
+            },
+            "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+            },
+            "spacing": {
+                "gutter": "24px",
+                "player-max-width": "480px",
+                "unit": "4px",
+                "margin-desktop": "48px",
+                "margin-mobile": "16px"
+            },
+            "fontFamily": {
+                "label-caps": ["JetBrains Mono"],
+                "headline-lg": ["Inter"],
+                "display-lg": ["Inter"],
+                "title-md": ["Inter"],
+                "body-sm": ["Inter"],
+                "body-lg": ["Inter"],
+                "headline-lg-mobile": ["Inter"]
+            },
+            "fontSize": {
+                "label-caps": ["12px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                "headline-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                "title-md": ["20px", {"lineHeight": "1.4", "fontWeight": "500"}],
+                "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                "body-lg": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                "headline-lg-mobile": ["24px", {"lineHeight": "1.2", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .glass-panel { backdrop-filter: blur(20px); background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .active-glow { box-shadow: 0 0 20px rgba(137, 206, 255, 0.3); }
+        .vertical-snap { scroll-snap-type: y mandatory; }
+        .snap-section { scroll-snap-align: start; scroll-snap-stop: always; }
+    </style>
+</head>
+<body class="bg-background text-on-surface selection:bg-secondary/30">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full z-50 bg-surface/70 backdrop-blur-xl border-b border-white/10 flex justify-between items-center px-gutter h-16 w-full">
+<div class="font-display-lg text-display-lg font-bold tracking-tighter text-primary">LUMINA</div>
+<div class="hidden md:flex flex-1 justify-start ml-12">
+<div class="relative w-full max-w-md">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full bg-white/5 border-none rounded-full py-2 pl-12 pr-6 font-label-caps text-label-caps focus:ring-1 focus:ring-secondary text-on-surface placeholder:text-on-surface-variant/50" placeholder="Search creators, vibes, or sounds..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<button class="material-symbols-outlined text-on-surface-variant hover:bg-white/10 transition-colors p-2 rounded-full active:scale-95 duration-150" data-icon="upload">upload</button>
+<button class="material-symbols-outlined text-on-surface-variant hover:bg-white/10 transition-colors p-2 rounded-full active:scale-95 duration-150" data-icon="notifications">notifications</button>
+<div class="w-10 h-10 rounded-full overflow-hidden border border-white/20">
+<img alt="User profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAK5qfxOQ6yFK0nTBpJhS7SFJOJHFHTGR_3rseytW5odmtdsebianExOtRojOEbruTWv1clm38eNBrXTCV1LwoRq6uEFsgIVILfCbPEN_ApVsEH8X4mC8qm7BtXjI18T5ynMMbeMR4QPar0i6lZ04Is2Kp8q8g1igLmy6i8AU1um1_kZBTQWDrVf-OhODomwphN0RbkJ7xRmtM5tkSBcGTT1uNA_mOL_5ZHWtIayaPKSBAs3r6dkvI8TtYZlg36mVAK1O61KbFs2FI"/>
+</div>
+</div>
+</header>
+<!-- SideNavBar -->
+<nav class="hidden md:flex flex-col pt-20 pb-8 h-full fixed left-0 top-0 h-full w-64 z-40 bg-surface/70 backdrop-blur-xl border-r border-white/10">
+<div class="flex items-center gap-4 text-primary border-l-4 border-secondary bg-secondary/10 px-6 py-3 transition-all duration-300 ease-in-out">
+<span class="material-symbols-outlined" data-icon="home" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="font-label-caps text-label-caps">Home</span>
+</div>
+<div class="flex items-center gap-4 text-on-surface-variant px-6 py-3 hover:bg-white/5 transition-all duration-300 ease-in-out">
+<span class="material-symbols-outlined" data-icon="explore">explore</span>
+<span class="font-label-caps text-label-caps">Explore</span>
+</div>
+<div class="flex items-center gap-4 text-on-surface-variant px-6 py-3 hover:bg-white/5 transition-all duration-300 ease-in-out">
+<span class="material-symbols-outlined" data-icon="subscriptions">subscriptions</span>
+<span class="font-label-caps text-label-caps">Subscriptions</span>
+</div>
+<div class="flex items-center gap-4 text-on-surface-variant px-6 py-3 hover:bg-white/5 transition-all duration-300 ease-in-out">
+<span class="material-symbols-outlined" data-icon="video_library">video_library</span>
+<span class="font-label-caps text-label-caps">Library</span>
+</div>
+<div class="flex items-center gap-4 text-on-surface-variant px-6 py-3 hover:bg-white/5 transition-all duration-300 ease-in-out">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+<span class="font-label-caps text-label-caps">History</span>
+</div>
+<div class="mt-8 px-6">
+<p class="text-[10px] text-on-surface-variant font-label-caps opacity-50 uppercase tracking-widest mb-4">Suggested</p>
+<div class="space-y-4">
+<div class="flex items-center gap-3">
+<img alt="Creator Avatar" class="w-8 h-8 rounded-full border border-white/10" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCqn6IqDR59EP4oAqwj47FQSxuwhc2458AsikDEZdUWOpem8AXODhcbbT5FO1TYCMYtKtnCbjNrUR4q5vuZDTDhk6n34dPctyRlE4DGwJaBHyJNXUEQy9bIVJbmaQDZpTULoVLywOgyQ2kLHAvv7nL3w-iaomBd-9Hbn3YHeYnf1IHUkrvSum5_IFPbGpS5CTS_qzxnly1NGNdkNhQJtugVA8TI9PF5OpW9iBk_RkCjTqljBSTkU0xBxHLlFNiGnjdbwDr7K8D1xgQ"/>
+<div>
+<p class="text-body-sm font-bold text-on-surface leading-tight">Vibe_Check</p>
+<p class="text-[10px] text-on-surface-variant font-label-caps">Curated feed</p>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-auto px-6 space-y-4">
+<button class="w-full bg-secondary text-on-secondary py-3 rounded-xl font-label-caps text-label-caps font-bold hover:brightness-110 active:scale-95 transition-all">Go Premium</button>
+<div class="flex flex-col gap-2">
+<div class="flex items-center gap-4 text-on-surface-variant px-2 py-2 hover:bg-white/5 transition-all">
+<span class="material-symbols-outlined text-[20px]" data-icon="settings">settings</span>
+<span class="font-label-caps text-[10px]">Settings</span>
+</div>
+</div>
+</div>
+</nav>
+<!-- Main Canvas -->
+<main class="md:ml-64 pt-16 h-screen overflow-hidden">
+<div class="h-full overflow-y-scroll no-scrollbar vertical-snap">
+<!-- Video Section 1 -->
+<section class="h-full w-full flex items-center justify-center snap-section relative py-4 px-4 md:py-10">
+<div class="relative w-full max-w-[480px] h-full bg-surface-container-low rounded-[40px] overflow-hidden border border-white/10 shadow-2xl">
+<!-- Video Content Placeholder -->
+<div class="absolute inset-0 w-full h-full">
+<img class="w-full h-full object-cover" data-alt="A cinematic, high-contrast vertical shot of a futuristic urban skyline at dusk. The sky is a deep indigo with streaks of neon cyan and baby blue lighting reflecting off glass skyscrapers. The mood is sophisticated and energetic, emphasizing high-tech aesthetics and immersive digital clarity. Soft volumetric fog adds depth to the scene, illuminated by sharp architectural rim lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBuQb0RzzPVtVWxYAV5UcyMdHeBTkz-_T6NZy_7PuDqPF66_ys0dbJm5gFB37MtwvbyDcQ-1NYT8GLDbEIB0QhQC7AaC_Gdt3ItNlu5RvMwSHAZ4s2zqPdJbYgLsg3ueh_Lhn0L-zim3zsaNeWiL5j_yaQnP_aabwJvS5rhl3xWINiPpyry0QHBSRPw1mDd4yBakBkvIxu1eqAuNaR7ZLNBoPnf8T3orSmKcfMQZ7TEgXcy0m7-LfdpHJ0T53udI5znrxwl_HaB_p0"/>
+<!-- Playback Progress Bar -->
+<div class="absolute bottom-0 left-0 w-full h-[2px] bg-white/20">
+<div class="h-full bg-secondary active-glow w-1/3 transition-all duration-1000"></div>
+</div>
+</div>
+<!-- Interactions Overlay (Right Aligned) -->
+<div class="absolute right-4 bottom-32 flex flex-col items-center gap-6 z-10">
+<div class="flex flex-col items-center gap-1">
+<div class="w-12 h-12 rounded-full glass-panel flex items-center justify-center text-on-surface active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-secondary" data-icon="favorite" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</div>
+<span class="font-label-caps text-[10px]">1.2M</span>
+</div>
+<div class="flex flex-col items-center gap-1">
+<div class="w-12 h-12 rounded-full glass-panel flex items-center justify-center text-on-surface active:scale-90 transition-transform">
+<span class="material-symbols-outlined" data-icon="comment">comment</span>
+</div>
+<span class="font-label-caps text-[10px]">45.2K</span>
+</div>
+<div class="flex flex-col items-center gap-1">
+<div class="w-12 h-12 rounded-full glass-panel flex items-center justify-center text-on-surface active:scale-90 transition-transform">
+<span class="material-symbols-outlined" data-icon="share">share</span>
+</div>
+<span class="font-label-caps text-[10px]">Share</span>
+</div>
+</div>
+<!-- Creator Details Overlay (Bottom) -->
+<div class="absolute bottom-0 left-0 w-full p-8 bg-gradient-to-t from-black/80 to-transparent">
+<div class="flex items-center gap-4 mb-4">
+<div class="relative">
+<img alt="Creator Profile" class="w-12 h-12 rounded-full border-2 border-secondary p-[2px]" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCAdnGYKMuD_JODOiRovart_4nBU90ZX6-EiHcx-lqnEJhw3rRmD2Sk9nElCThJRX1VIrBVqW6wnIoMEyinyUuj5ubgnPH4uWJahjQcdDB-8jFnEKs13J2Mx0KZb4_ABuer-Ci_tAdbIxmgKLVzj6RxO14RV3MalXfpfZLLJF-3VT6NNbhJ3qsrGyaVu70CeUSp5ZJ-NLVmCbkhN1PyvEPk0fgge5SfnM7NkR4f_m-WPYQ9Cld-k316jAN-ck0oD00NJSvLE_rwUKo"/>
+<div class="absolute -bottom-1 -right-1 bg-secondary text-on-secondary rounded-full p-[2px]">
+<span class="material-symbols-outlined text-[12px] block" data-icon="add">add</span>
+</div>
+</div>
+<div>
+<h3 class="font-title-md text-title-md text-white">@AetherDigital</h3>
+<div class="flex items-center gap-2 mt-1">
+<span class="font-label-caps text-[10px] text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]" data-icon="music_note">music_note</span>
+                                        Night City Dreams - Original Audio
+                                    </span>
+</div>
+</div>
+</div>
+<p class="text-body-sm text-on-surface/90 line-clamp-2 mb-4">
+                            Exploring the boundaries of generative architecture in the year 2077. #cyberpunk #future #digitalart #glassmorphism
+                        </p>
+</div>
+</div>
+</section>
+<!-- Video Section 2 -->
+<section class="h-full w-full flex items-center justify-center snap-section relative py-4 px-4 md:py-10">
+<div class="relative w-full max-w-[480px] h-full bg-surface-container-low rounded-[40px] overflow-hidden border border-white/10 shadow-2xl">
+<div class="absolute inset-0 w-full h-full">
+<img class="w-full h-full object-cover" data-alt="An abstract macro composition of liquid crystal structures flowing together in a dark void. The scene is dominated by deep blacks and bright baby blue highlights that shimmer like digital diamonds. Glowing particles dance in the fluid, creating a sense of sophisticated, high-energy movement. The lighting is focused and dramatic, highlighting the tactile edges and glass-like translucency of the elements." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDM8jJtIiTu4Txe7kN7vvB1QST2YqSGquwPvvuk_rDCi7Lm-EcND-JG1PDUMETI_a4Z6Z1yfpVuuAbgdBGi6ChU5ByAHj_6o1gEk0LosFibGzDOhcogAulzz801r5PwwSLx0h9YZa6Qy-VGY9vmTlv_i9An5TrGrRRuA0M9dHdLa-trWgRUg-GQNifGp34-PJkcJrygqA8A3NeuOjj20niQl5s_0VjC05JzPdngxB3isnLKugJLp8PN6y9MJd0F892XGBd1BztbeMk"/>
+<div class="absolute bottom-0 left-0 w-full h-[2px] bg-white/20">
+<div class="h-full bg-secondary active-glow w-3/4"></div>
+</div>
+</div>
+<!-- Interactions -->
+<div class="absolute right-4 bottom-32 flex flex-col items-center gap-6 z-10">
+<div class="flex flex-col items-center gap-1">
+<div class="w-12 h-12 rounded-full glass-panel flex items-center justify-center text-on-surface">
+<span class="material-symbols-outlined" data-icon="favorite">favorite</span>
+</div>
+<span class="font-label-caps text-[10px]">892K</span>
+</div>
+<div class="flex flex-col items-center gap-1">
+<div class="w-12 h-12 rounded-full glass-panel flex items-center justify-center text-on-surface">
+<span class="material-symbols-outlined" data-icon="comment">comment</span>
+</div>
+<span class="font-label-caps text-[10px]">12.4K</span>
+</div>
+<div class="flex flex-col items-center gap-1">
+<div class="w-12 h-12 rounded-full glass-panel flex items-center justify-center text-on-surface">
+<span class="material-symbols-outlined" data-icon="share">share</span>
+</div>
+<span class="font-label-caps text-[10px]">Share</span>
+</div>
+</div>
+<!-- Creator Details -->
+<div class="absolute bottom-0 left-0 w-full p-8 bg-gradient-to-t from-black/80 to-transparent">
+<div class="flex items-center gap-4 mb-4">
+<div class="relative">
+<img alt="Creator Profile" class="w-12 h-12 rounded-full border-2 border-secondary p-[2px]" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCivhB8FW-mAyHFIZBfXKEuUajWYC_NZY0hZDosAGgjWRmU5ojStdVF2fKhlh3NsGTnifgxsBql9flX9On2642f-1yvMwqvGbjEdhnGwBOerqHP7h4BRkTmKKkwN5T4GpJBoqqdPFI28SdslY1uki939UJS6pIGXnomPIg0bt_rhmKkD4Tg_6RNL9DTEwj_ASzxoW3Uq0pgA7gkOQVHVFPmZ3OQRbHDl5a_G-6_K8HCkPC8M5udtVDgejBdqPeY18jvz73zBcseo_4"/>
+<div class="absolute -bottom-1 -right-1 bg-secondary text-on-secondary rounded-full p-[2px]">
+<span class="material-symbols-outlined text-[12px] block" data-icon="add">add</span>
+</div>
+</div>
+<div>
+<h3 class="font-title-md text-title-md text-white">@MotionTheory</h3>
+<div class="flex items-center gap-2 mt-1">
+<span class="font-label-caps text-[10px] text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]" data-icon="music_note">music_note</span>
+                                        Synthesized Realities - Liquid Pulse
+                                    </span>
+</div>
+</div>
+</div>
+<p class="text-body-sm text-on-surface/90 line-clamp-2 mb-4">
+                            Diving into the fluid dynamics of light and color. New series drops tomorrow! #abstract #motiongraphics #3dart #lumina
+                        </p>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- Mobile Navigation -->
+<footer class="md:hidden fixed bottom-0 left-0 w-full bg-surface/70 backdrop-blur-xl border-t border-white/10 z-50 flex justify-around items-center h-16 px-4">
+<button class="flex flex-col items-center gap-1 text-primary">
+<span class="material-symbols-outlined" data-icon="home" style="font-variation-settings: 'FILL' 1;">home</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="explore">explore</span>
+</button>
+<button class="w-12 h-12 -mt-8 bg-secondary text-on-secondary rounded-full shadow-lg flex items-center justify-center active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-3xl" data-icon="add">add</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="subscriptions">subscriptions</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="video_library">video_library</span>
+</button>
+</footer>
+</body></html>
