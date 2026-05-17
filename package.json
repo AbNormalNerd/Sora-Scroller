@@ -6,7 +6,7 @@
   "scripts": {
     "generate:manifest": "node scripts/generateManifest.mjs",
     "dev": "vite --host 127.0.0.1",
-    "build": "npm run generate:manifest && vite build",
+    "build": "vite build",
     "preview": "vite preview --host 127.0.0.1"
   },
   "dependencies": {
