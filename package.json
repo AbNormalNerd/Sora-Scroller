@@ -5,18 +5,18 @@
   "type": "module",
   "scripts": {
     "generate:manifest": "node scripts/generateManifest.mjs",
-    "upload:blob": "node scripts/uploadBlobManifest.mjs",
     "upload:r2": "node scripts/uploadR2Manifest.mjs",
     "dev": "vite --host 127.0.0.1",
     "build": "vite build",
     "preview": "vite preview --host 127.0.0.1"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.1048.0",
-    "@vercel/blob": "^2.3.3",
-    "@vitejs/plugin-react": "^5.1.1",
     "react": "^19.2.3",
-    "react-dom": "^19.2.3",
+    "react-dom": "^19.2.3"
+  },
+  "devDependencies": {
+    "@aws-sdk/client-s3": "^3.1048.0",
+    "@vitejs/plugin-react": "^5.1.1",
     "typescript": "^5.9.3",
     "vite": "^7.2.7"
   }

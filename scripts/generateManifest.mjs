@@ -6,7 +6,7 @@ const root = process.cwd();
 const mediaBaseUrl = (process.env.MEDIA_BASE_URL ?? "").replace(/\/+$/, "");
 const mediaRootName = "Sora Memories";
 const mediaRoot = path.join(root, mediaRootName);
-const outputPath = path.join(root, "src", "data", "videos.json");
+const outputPath = path.join(root, "public", "data", "videos.json");
 const extensions = new Set([".mp4", ".webm", ".mov", ".m4v"]);
 
 const slug = (value) =>

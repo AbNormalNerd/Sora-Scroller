@@ -1,6 +1,5 @@
 import React, { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
-import videos from "./data/videos.json";
 import "./styles.css";
 
 const STORAGE_KEYS = {
@@ -91,6 +90,8 @@ function Icon({ children, className = "", filled = false }) {
 }
 
 function App() {
+  const [videos, setVideos] = useState([]);
+  const [manifestReady, setManifestReady] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
   const [screen, setScreen] = useState("home");
   const [channel, setChannel] = useState(null);
@@ -101,7 +102,29 @@ function App() {
   const [comments, setComments] = useLocalStorageState(STORAGE_KEYS.comments, {});
   const [aspectMap, setAspectMap] = useLocalStorageState(STORAGE_KEYS.aspects, {});
 
-  const randomizedVideos = useMemo(() => randomizeByChannel(videos), []);
+  useEffect(() => {
+    let cancelled = false;
+    fetch("/data/videos.json", { cache: "force-cache" })
+      .then((response) => {
+        if (!response.ok) throw new Error(`Manifest failed: ${response.status}`);
+        return response.json();
+      })
+      .then((items) => {
+        if (!cancelled) setVideos(items);
+      })
+      .catch(() => {
+        if (!cancelled) setVideos([]);
+      })
+      .finally(() => {
+        if (!cancelled) setManifestReady(true);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const randomizedVideos = useMemo(() => randomizeByChannel(videos), [videos]);
   const feedVideos = useMemo(
     () => randomizedVideos.filter((video) => getCategory(video, aspectMap) === "shorts"),
     [aspectMap, randomizedVideos]
@@ -180,19 +203,27 @@ function App() {
 
   const showShell = screen !== "home";
 
+  if (!manifestReady) {
+    return (
+      <div className="min-h-screen bg-background text-on-surface flex items-center justify-center">
+        <div className="h-12 w-12 rounded-full border border-white/10 border-t-secondary animate-spin" />
+      </div>
+    );
+  }
+
   return (
     <div className="bg-background text-on-surface selection:bg-secondary/30 min-h-screen overflow-hidden">
       {showShell && (
         <>
           <TopNav onNavigate={setScreen} muted={muted} onToggleMuted={() => setMuted((value) => !value)} />
-          <SideNav active={screen} onNavigate={setScreen} channels={channels} />
+          <SideNav active={screen} onNavigate={setScreen} channels={channels} onOpenChannel={openChannel} />
         </>
       )}
 
       {screen === "home" && (
         <>
           <TopNav onNavigate={setScreen} muted={muted} onToggleMuted={() => setMuted((value) => !value)} />
-          <SideNav active="home" onNavigate={setScreen} channels={channels} />
+          <SideNav active="home" onNavigate={setScreen} channels={channels} onOpenChannel={openChannel} />
           <Feed
             videos={feedVideos}
             activeIndex={activeIndex}
@@ -296,7 +327,7 @@ function TopNav({ onNavigate, muted, onToggleMuted }) {
   );
 }
 
-function SideNav({ active, onNavigate, channels }) {
+function SideNav({ active, onNavigate, channels, onOpenChannel }) {
   const items = [
     ["home", "home", "Home"],
     ["discover", "explore", "Explore"],
@@ -325,8 +356,12 @@ function SideNav({ active, onNavigate, channels }) {
       <div className="mt-8 px-6">
         <p className="text-[10px] text-on-surface-variant font-label-caps opacity-50 uppercase tracking-widest mb-4">Suggested</p>
         <div className="space-y-4">
-          {channels.slice(0, 3).map((channel) => (
-            <button key={channel.name} type="button" onClick={() => onNavigate("discover")} className="flex items-center gap-3 bg-transparent text-left">
+          {channels
+            .slice()
+            .sort((a, b) => b.shorts - a.shorts || a.name.localeCompare(b.name))
+            .slice(0, 6)
+            .map((channel) => (
+            <button key={channel.name} type="button" onClick={() => onOpenChannel(channel.name)} className="flex items-center gap-3 bg-transparent text-left w-full rounded-xl px-2 py-1 hover:bg-white/5 transition-colors">
               <div className="w-8 h-8 rounded-full border border-white/10 bg-secondary text-on-primary flex items-center justify-center font-bold">
                 {channel.name.slice(0, 1).toUpperCase()}
               </div>

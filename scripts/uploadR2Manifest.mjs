@@ -2,10 +2,10 @@ import { createReadStream, readFileSync } from "node:fs";
 import { mkdir, open, readdir, stat, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { ListObjectsV2Command, PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
-import existingManifest from "../src/data/videos.json" with { type: "json" };
+import existingManifest from "../public/data/videos.json" with { type: "json" };
 
 const root = process.cwd();
-const outputPath = path.join(root, "src", "data", "videos.json");
+const outputPath = path.join(root, "public", "data", "videos.json");
 const extensions = new Set([".mp4", ".webm", ".mov", ".m4v"]);
 const videoMime = new Map([
   [".mp4", "video/mp4"],
