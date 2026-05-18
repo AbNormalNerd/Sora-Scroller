@@ -9,6 +9,47 @@ const STORAGE_KEYS = {
 };
 
 const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
+const videoPath = (video, mode = "watch") => `/${mode}/${encodeURIComponent(video.id)}`;
+const channelPath = (name) => `/channel/${encodeURIComponent(name)}`;
+const absoluteVideoUrl = (video, mode = "watch") => `${window.location.origin}${videoPath(video, mode)}`;
+
+function writeRoute(path, replace = false) {
+  const next = `${window.location.origin}${path}`;
+  if (window.location.href === next) return;
+  window.history[replace ? "replaceState" : "pushState"]({}, "", path);
+}
+
+function copyText(value) {
+  if (navigator.clipboard?.writeText) {
+    navigator.clipboard.writeText(value).catch(() => {});
+    return;
+  }
+  const input = document.createElement("input");
+  input.value = value;
+  input.style.position = "fixed";
+  input.style.opacity = "0";
+  document.body.append(input);
+  input.select();
+  document.execCommand("copy");
+  input.remove();
+}
+
+function routeFromLocation(videos, feedVideos) {
+  const [kind, rawValue] = window.location.pathname.split("/").filter(Boolean);
+  const value = rawValue ? decodeURIComponent(rawValue) : "";
+  if ((kind === "watch" || kind === "short" || kind === "video") && value) {
+    const video = videos.find((item) => item.id === value);
+    if (!video) return null;
+    const feedIndex = feedVideos.findIndex((item) => item.id === video.id);
+    return feedIndex >= 0 && kind !== "watch"
+      ? { screen: "home", activeIndex: feedIndex }
+      : { screen: "watch", watchVideoId: video.id };
+  }
+  if (kind === "channel" && value) {
+    return videos.some((item) => item.channel === value) ? { screen: "channel", channel: value } : null;
+  }
+  return null;
+}
 
 function readStorage(key, fallback) {
   try {
@@ -166,15 +207,17 @@ function App() {
     setChannel(name);
     setWatchVideoId(null);
     setScreen("channel");
+    writeRoute(channelPath(name));
   }, []);
 
-  const openVideo = useCallback((id) => {
+  const openVideo = useCallback((id, mode = "watch") => {
     const index = feedVideos.findIndex((video) => video.id === id);
-    if (index >= 0) {
+    if (index >= 0 && mode === "short") {
       setActiveIndex(index);
       setWatchVideoId(null);
       setChannel(null);
       setScreen("home");
+      writeRoute(videoPath(feedVideos[index], "short"));
       requestAnimationFrame(() => {
         window.dispatchEvent(new CustomEvent("lumina:jump", { detail: { index } }));
       });
@@ -183,7 +226,45 @@ function App() {
     setWatchVideoId(id);
     setChannel(null);
     setScreen("watch");
-  }, [feedVideos]);
+    const video = videos.find((item) => item.id === id);
+    if (video) writeRoute(videoPath(video, "watch"));
+  }, [feedVideos, videos]);
+
+  useEffect(() => {
+    if (!manifestReady || !videos.length) return;
+
+    const applyRoute = () => {
+      const route = routeFromLocation(videos, feedVideos);
+      if (!route) return;
+      if (route.screen === "home") {
+        setActiveIndex(route.activeIndex);
+        setWatchVideoId(null);
+        setChannel(null);
+        setScreen("home");
+        requestAnimationFrame(() => {
+          window.dispatchEvent(new CustomEvent("lumina:jump", { detail: { index: route.activeIndex } }));
+        });
+      } else if (route.screen === "watch") {
+        setWatchVideoId(route.watchVideoId);
+        setChannel(null);
+        setScreen("watch");
+      } else if (route.screen === "channel") {
+        setChannel(route.channel);
+        setWatchVideoId(null);
+        setScreen("channel");
+      }
+    };
+
+    applyRoute();
+    window.addEventListener("popstate", applyRoute);
+    return () => window.removeEventListener("popstate", applyRoute);
+  }, [manifestReady, videos, feedVideos]);
+
+  useEffect(() => {
+    if (screen === "home" && activeVideo) {
+      writeRoute(videoPath(activeVideo, "short"), true);
+    }
+  }, [activeVideo, screen]);
 
   const toggleLike = useCallback((id) => {
     setLikes((current) => ({ ...current, [id]: !current[id] }));
@@ -492,6 +573,7 @@ function Feed(props) {
               onToggleLike={onToggleLike}
               onOpenComments={onOpenComments}
               onOpenChannel={onOpenChannel}
+              onCopyLink={() => copyText(absoluteVideoUrl(video, "short"))}
               onTogglePlayback={() => setPausedByUser((value) => !value)}
             />
           );
@@ -515,9 +597,17 @@ const ShortSection = memo(function ShortSection(props) {
     onToggleLike,
     onOpenComments,
     onOpenChannel,
+    onCopyLink,
     onTogglePlayback
   } = props;
   const videoRef = useRef(null);
+  const activeRef = useRef(active);
+  const pausedByUserRef = useRef(pausedByUser);
+
+  useEffect(() => {
+    activeRef.current = active;
+    pausedByUserRef.current = pausedByUser;
+  }, [active, pausedByUser]);
 
   useEffect(() => {
     const node = videoRef.current;
@@ -530,6 +620,13 @@ const ShortSection = memo(function ShortSection(props) {
       node.pause();
     }
   }, [active, muted, pausedByUser]);
+
+  const recoverPlayback = useCallback(() => {
+    const node = videoRef.current;
+    if (!node || !activeRef.current || pausedByUserRef.current || document.hidden) return;
+    const play = node.play();
+    if (play?.catch) play.catch(() => {});
+  }, []);
 
   return (
     <section className="h-full w-full flex items-center justify-center snap-section relative py-4 px-4 md:py-10">
@@ -545,6 +642,9 @@ const ShortSection = memo(function ShortSection(props) {
               loop
               preload={near ? "auto" : "metadata"}
               onLoadedMetadata={(event) => onAspect(video.id, event.currentTarget.videoWidth, event.currentTarget.videoHeight)}
+              onPause={recoverPlayback}
+              onStalled={recoverPlayback}
+              onWaiting={recoverPlayback}
             />
           )}
           <div className="absolute bottom-0 left-0 w-full h-[2px] bg-white/20">
@@ -554,28 +654,28 @@ const ShortSection = memo(function ShortSection(props) {
 
         <div className="absolute right-4 bottom-32 flex flex-col items-center gap-6 z-10">
           <div className="flex flex-col items-center gap-1">
-            <button className="w-12 h-12 rounded-full glass-panel flex items-center justify-center text-on-surface active:scale-90 transition-transform" type="button" onClick={() => onToggleLike(video.id)}>
+            <button className="w-12 h-12 rounded-full glass-panel flex items-center justify-center text-on-surface active:scale-90 transition-transform" type="button" onClick={(event) => { event.stopPropagation(); onToggleLike(video.id); }}>
               <Icon className={liked ? "text-secondary" : ""} filled={liked}>favorite</Icon>
             </button>
             <span className="font-label-caps text-[10px]">{liked ? "SAVED" : "SAVE"}</span>
           </div>
           <div className="flex flex-col items-center gap-1">
-            <button className="w-12 h-12 rounded-full glass-panel flex items-center justify-center text-on-surface active:scale-90 transition-transform" type="button" onClick={() => onOpenComments(video.id)}>
+            <button className="w-12 h-12 rounded-full glass-panel flex items-center justify-center text-on-surface active:scale-90 transition-transform" type="button" onClick={(event) => { event.stopPropagation(); onOpenComments(video.id); }}>
               <Icon>comment</Icon>
             </button>
             <span className="font-label-caps text-[10px]">{commentCount}</span>
           </div>
           <div className="flex flex-col items-center gap-1">
-            <div className="w-12 h-12 rounded-full glass-panel flex items-center justify-center text-on-surface active:scale-90 transition-transform">
+            <button className="w-12 h-12 rounded-full glass-panel flex items-center justify-center text-on-surface active:scale-90 transition-transform" type="button" onClick={(event) => { event.stopPropagation(); onCopyLink(); }}>
               <Icon>share</Icon>
-            </div>
+            </button>
             <span className="font-label-caps text-[10px]">Share</span>
           </div>
         </div>
 
         <div className="absolute bottom-0 left-0 w-full p-8 bg-gradient-to-t from-black/80 to-transparent">
           <div className="flex items-center gap-4 mb-4">
-            <button className="relative bg-transparent" type="button" onClick={() => onOpenChannel(video.channel)}>
+            <button className="relative bg-transparent" type="button" onClick={(event) => { event.stopPropagation(); onOpenChannel(video.channel); }}>
               <div className="w-12 h-12 rounded-full border-2 border-secondary p-[2px] bg-secondary text-on-secondary flex items-center justify-center font-bold">
                 {video.channel.slice(0, 1).toUpperCase()}
               </div>
@@ -584,7 +684,7 @@ const ShortSection = memo(function ShortSection(props) {
               </div>
             </button>
             <div>
-              <button className="font-title-md text-title-md text-white bg-transparent" type="button" onClick={() => onOpenChannel(video.channel)}>
+              <button className="font-title-md text-title-md text-white bg-transparent" type="button" onClick={(event) => { event.stopPropagation(); onOpenChannel(video.channel); }}>
                 @{video.channel}
               </button>
               <div className="flex items-center gap-2 mt-1">
